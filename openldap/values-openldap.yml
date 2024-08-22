@@ -7,15 +7,15 @@ replicaCount: 1
 # Define deployment strategy - IMPORTANT: use rollingUpdate: null when use Recreate strategy.
 # It prevents from merging with existing map keys which are forbidden.
 strategy: {}
-  # type: RollingUpdate
-  # rollingUpdate:
-  #   maxSurge: 1
-  #   maxUnavailable: 0
-  #
-  # or
-  #
-  # type: Recreate
-  # rollingUpdate: null
+# type: RollingUpdate
+# rollingUpdate:
+#   maxSurge: 1
+#   maxUnavailable: 0
+#
+# or
+#
+# type: Recreate
+# rollingUpdate: null
 image:
   # From repository https://github.com/osixia/docker-openldap
   repository: osixia/openldap
@@ -28,10 +28,10 @@ existingSecret: ""
 # settings for enabling TLS
 tls:
   enabled: false
-  secret: ""  # The name of a kubernetes.io/tls type secret to use for TLS
+  secret: "" # The name of a kubernetes.io/tls type secret to use for TLS
   CA:
     enabled: false
-    secret: ""  # The name of a generic secret to use for custom CA certificate (ca.crt)
+    secret: "" # The name of a generic secret to use for custom CA certificate (ca.crt)
 ## Add additional labels to all resources
 extraLabels: {}
 ## Add additional annotations to pods
@@ -41,7 +41,7 @@ service:
   clusterIP: ""
 
   ldapPort: 389
-  sslLdapPort: 636  # Only used if tls.enabled is true
+  sslLdapPort: 636 # Only used if tls.enabled is true
   ## List of IP addresses at which the service is available
   ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
   ##
@@ -54,8 +54,8 @@ service:
 # Default configuration for openldap as environment variables. These get injected directly in the container.
 # Use the env variables from https://github.com/osixia/docker-openldap#beginner-guide
 env:
-  LDAP_ORGANISATION: "Talking Quickly's Demo"
-  LDAP_DOMAIN: "ssotest.staging.talkingquickly.co.uk"
+  LDAP_ORGANISATION: "Singuare CORP"
+  LDAP_DOMAIN: "cstd.corp"
   LDAP_BACKEND: "hdb"
   LDAP_TLS: "true"
   LDAP_TLS_ENFORCE: "false"
@@ -73,11 +73,11 @@ configPassword: password
 # Custom openldap configuration files used to override default settings
 customLdifFiles:
   0-initial-ous.ldif: |-
-    dn: ou=People,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk
+    dn: ou=People,dc=cstd,dc=corp
     objectClass: organizationalUnit
     ou: People
 
-    dn: ou=Group,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk
+    dn: ou=Group,dc=cstd,dc=corp
     objectClass: organizationalUnit
     ou: Group
 
@@ -93,24 +93,24 @@ persistence:
   ##
   # storageClass: "-"
   accessMode: ReadWriteOnce
-  size: 8Gi
+  size: 30Gi
   # existingClaim: ""
 
 resources: {}
- # requests:
- #   cpu: "100m"
- #   memory: "256Mi"
- # limits:
- #   cpu: "500m"
- #   memory: "512Mi"
+# requests:
+#   cpu: "100m"
+#   memory: "256Mi"
+# limits:
+#   cpu: "500m"
+#   memory: "512Mi"
 
 initResources: {}
- # requests:
- #   cpu: "100m"
- #   memory: "128Mi"
- # limits:
- #   cpu: "100m"
- #   memory: "128Mi"
+# requests:
+#   cpu: "100m"
+#   memory: "128Mi"
+# limits:
+#   cpu: "100m"
+#   memory: "128Mi"
 
 nodeSelector: {}
 
